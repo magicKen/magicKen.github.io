@@ -17,7 +17,7 @@
 <meta property="og:description" content="前言一直想通过写博客对自己学习过的技术进行记录、总结，一方面是对自己的知识体系进行梳理，另一方面则是为了在自己以后可能用到但忘得差不多时能够快速地重新熟悉起来，毕竟看自己写的东西总是更容易懂。国内也有不错的博客平台，像老牌的CSDN，或者新晋的简书，也曾申请过账号，但都没有写作的欲望，多是因遇到某些问题而不得不去请教作者。
 在不断接触私人的博客网站后，觉得能这样做的人挺厉害的，就不禁地自己也想试试">
 <meta property="og:image" content="http://yoursite.com/photo.jpg">
-<meta property="og:updated_time" content="2016-11-21T02:16:54.000Z">
+<meta property="og:updated_time" content="2016-11-21T06:55:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以Hexo为框架搭建博客">
 <meta name="twitter:description" content="前言一直想通过写博客对自己学习过的技术进行记录、总结，一方面是对自己的知识体系进行梳理，另一方面则是为了在自己以后可能用到但忘得差不多时能够快速地重新熟悉起来，毕竟看自己写的东西总是更容易懂。国内也有不错的博客平台，像老牌的CSDN，或者新晋的简书，也曾申请过账号，但都没有写作的欲望，多是因遇到某些问题而不得不去请教作者。
@@ -141,12 +141,11 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备"><span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建"><span class="toc-text">创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署"><span class="toc-text">部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备-1"><span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Github"><span class="toc-text">Github</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Coding"><span class="toc-text">Coding</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#补充"><span class="toc-text">补充</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绑定"><span class="toc-text">绑定</span></a></li></ol>
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一直想通过写博客对自己学习过的技术进行记录、总结，一方面是对自己的知识体系进行梳理，另一方面则是为了在自己以后可能用到但忘得差不多时能够快速地重新熟悉起来，毕竟看自己写的东西总是更容易懂。国内也有不错的博客平台，像老牌的<a href="http://www.csdn.net/" target="_blank" rel="external">CSDN</a>，或者新晋的<a href="http://www.jianshu.com/" target="_blank" rel="external">简书</a>，也曾申请过账号，但都没有写作的欲望，多是因遇到某些问题而不得不去请教作者。</p>
 <p>在不断接触私人的博客网站后，觉得能这样做的人挺厉害的，就不禁地自己也想试试，恰好同事有过这样的经验，几个月前看过他的<a href="http://www.myronliu.com/2016/03/24/hexo-coding%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" target="_blank" rel="external">搭建过程记录</a>后自己一直想实践，结果活生生地拖到了现在终于算是初步建好了。</p>
 <p>虽然通过学习他的经验建好了，但我在搭建的过程中还是碰到了一些不一样的问题，所以有此篇博客，也当做自己的一个开始。</p>
-<p>本人强烈推荐按照<a href="https://hexo.io/docs/index.html" target="_blank" rel="external">官方文档</a>的步骤进行搭建Hexo，页面右上角可选择语言，有些中文翻译个人觉得不太准确，所以最好还是参照英文原文。本文后面的内容只有部分描述Hexo的搭建，如果您阅读该部分后有任何不适请随时对照<a href="https://hexo.io/docs/index.html" target="_blank" rel="external">官方文档</a>。</p>
+<p>本人强烈推荐按照<a href="https://hexo.io/docs/index.html" target="_blank" rel="external">官方文档</a>的步骤进行搭建Hexo，页面右上角可选择语言，有些中文翻译个人觉得不太准确，所以最好还是参照英文原文。本文后面的内容只有部分描述Hexo的搭建，如果您阅读该部分后有任何不适请随时对照<a href="https://hexo.io/docs/index.html" target="_blank" rel="external">官方文档</a>。<br><a id="more"></a></p>
 <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>我所使用的系统环境是macOS Sierra(10.12)，需预先安装以下两个软件：</p>
 <ol>
 <li><a href="https://nodejs.org/en/" target="_blank" rel="external">Node.js</a></li>
