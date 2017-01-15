@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>如何将Library上传到JCenter | MK NT L</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文所分享的经验，是使用Android Studio配合Bintray将自己的常用依赖包上传到JCenter，以供更多人方便使用。
+在开始前，有兴趣的可以先做个尝试：
+1compile &amp;apos;com.magicken.android:hello-bintray:1.0.0&amp;apos;
+调用HelloBintray.hello()可以得到以下字符串：
+1You ara using a pack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何将Library上传到JCenter">
+<meta property="og:url" content="http://yoursite.com/2016/11/26/how-to-upload-library-to-jcenter/index.html">
+<meta property="og:site_name" content="MK NT L">
+<meta property="og:description" content="本文所分享的经验，是使用Android Studio配合Bintray将自己的常用依赖包上传到JCenter，以供更多人方便使用。
+在开始前，有兴趣的可以先做个尝试：
+1compile &amp;apos;com.magicken.android:hello-bintray:1.0.0&amp;apos;
+调用HelloBintray.hello()可以得到以下字符串：
+1You ara using a pack">
+<meta property="og:image" content="http://yoursite.com/1注册成功.png">
+<meta property="og:image" content="http://yoursite.com/3又出现所拥有仓库.png">
+<meta property="og:image" content="http://yoursite.com/创建组织.png">
+<meta property="og:image" content="http://yoursite.com/创建组织2.png">
+<meta property="og:image" content="http://yoursite.com/4创建仓库.png">
+<meta property="og:image" content="http://yoursite.com/5仓库界面.png">
+<meta property="og:image" content="http://yoursite.com/创建包.png">
+<meta property="og:image" content="http://yoursite.com/应用到buildgradle.png">
+<meta property="og:image" content="http://yoursite.com/查看apikey.png">
+<meta property="og:image" content="http://yoursite.com/上传到bintray成功.png">
+<meta property="og:image" content="http://yoursite.com/使用包.png">
+<meta property="og:image" content="http://yoursite.com/运行结果.png">
+<meta property="og:image" content="http://yoursite.com/上传到bintray成功.png">
+<meta property="og:image" content="http://yoursite.com/添加到JCenter.png">
+<meta property="og:image" content="http://yoursite.com/添加到JCenter成功.png">
+<meta property="og:image" content="http://yoursite.com/添加到JCenter成功2.png">
+<meta property="og:updated_time" content="2017-01-15T10:26:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何将Library上传到JCenter">
+<meta name="twitter:description" content="本文所分享的经验，是使用Android Studio配合Bintray将自己的常用依赖包上传到JCenter，以供更多人方便使用。
+在开始前，有兴趣的可以先做个尝试：
+1compile &amp;apos;com.magicken.android:hello-bintray:1.0.0&amp;apos;
+调用HelloBintray.hello()可以得到以下字符串：
+1You ara using a pack">
+<meta name="twitter:image" content="http://yoursite.com/1注册成功.png">
+  
+    <link rel="alternative" href="/atom.xml" title="MK NT L" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/icon/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">magicKen</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">有些事不是看到了希望才去坚持，而是坚持了才会看到希望。</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/magicKen" title="github">github</a>
+		        
+					<a class="mail" target="_blank" href="mailto:zhanggh801@gmail.com" title="mail">mail</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">magicKen</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="/icon/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">magicKen</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">有些事不是看到了希望才去坚持，而是坚持了才会看到希望。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/magicKen" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:zhanggh801@gmail.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-how-to-upload-library-to-jcenter" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何将Library上传到JCenter
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文所分享的经验，是使用Android Studio配合<a href="https://bintray.com/" target="_blank" rel="external">Bintray</a>将自己的常用依赖包上传到<a href="http://jcenter.bintray.com/" target="_blank" rel="external">JCenter</a>，以供更多人方便使用。</p>
+<p>在开始前，有兴趣的可以先做个尝试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.magicken.android:hello-bintray:1.0.0&apos;</div></pre></td></tr></table></figure>
+<p>调用<code>HelloBintray.hello()</code>可以得到以下字符串：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">You ara using a package from bintray!</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>这块需要分网络和本地两部分讲。</p>
+<h3 id="Part1"><a href="#Part1" class="headerlink" title="Part1"></a>Part1</h3><p>首先，我们需要两个账号：</p>
+<ol>
+<li>一个git仓库账号，可以是<a href="https://github.com/" target="_blank" rel="external">Github</a>或者<a href="https://coding.net/" target="_blank" rel="external">Coding</a>；</li>
+<li>一个<a href="https://bintray.com/" target="_blank" rel="external">Bintray</a>账号。</li>
+</ol>
+<p>在申请第二个账号时需要注意三点：<br>1、最近（2017/1/1）申请Bintray的账号和以前略有不同，现在注册的账号需要设置组织（Organizations），且账号默认有一段时间的高级版（Premium）免费试用。当我手动中止试用资格时，注册账号时同时申请的组织会变成不可用，且无法添加同名的组织。<br>2、可能是为了推广组织的使用，在刚注册账号登录后默认进入申请的组织组织下（在此界面有所拥有的仓库（Owned Repositories）模块，上传自己的依赖包需要先在该模块下新建仓库），点击右上角头像下标的View Profile后显示的账户界面如下：<br><img src="1注册成功.png" alt=""></p>
+<p>可以看到并没有所拥有的仓库的模块，也就无法添加仓库（Repository）（这里的仓库跟Github上的仓库概念有点不同，这里的一个仓库可以添加多个包（Package），一个包可上传一个依赖库），也即只能在组织下添加仓库。但很奇怪的，我确定我并没有做什么操作，在一段时间后所拥有的仓库又出现了：<br><img src="3又出现所拥有仓库.png" alt=""></p>
+<p>3、因为上面两点原因，我只能添加普通版的组织：<br><img src="创建组织.png" alt=""></p>
+<p>选择<strong>Create new organization</strong>后：<br><img src="创建组织2.png" alt=""></p>
+<p>在这里输入你喜欢的组织名字，点击<strong>Create</strong>即可。</p>
+<p>在组织下面的添加仓库和账户主界面添加的仓库，对于后面上传文件的配置中有个不大却很重要的差别，这里暂且按下，后面再提。</p>
+<p>接着在这个组织下添加仓库，点击<strong>Add New Repository</strong>：<br><img src="4创建仓库.png" alt=""></p>
+<p>注意类型（Type）选择<strong>Maven</strong>，但名字（Name）则不一定是maven。这个名字在后面的配置文件会用到。</p>
+<p>成功之后可以选择查看自己已创建的仓库界面：<br><img src="5仓库界面.png" alt=""></p>
+<p>然后点击<strong>Add New Package</strong>到新建包界面：<br><img src="创建包.png" alt=""></p>
+<p>因为最后一项版本控制（Version Control）属于必填，所以需要现在之前申请Coding上新建一个仓库，并把对应的网址填进去（因是中文界面，操作简单，这里就不贴步骤了）。虽然这个网址对后面的上传似乎并没有很大影响。</p>
+<p>到这里，我们已经完成了在Bintray上的工作，接下来是在本地配置需要上传的包。</p>
+<h3 id="Part2"><a href="#Part2" class="headerlink" title="Part2"></a>Part2</h3><p>在项目的<code>build.gradle</code>文件中添加两行代码，以加载上传操作所需用到的插件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">classpath &apos;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7&apos;</div><div class="line">classpath &apos;com.github.dcendents:android-maven-gradle-plugin:1.4.1&apos;</div></pre></td></tr></table></figure>
+<p>加在这个位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">buildscript &#123;</div><div class="line">   repositories &#123;</div><div class="line">       jcenter()</div><div class="line">   &#125;</div><div class="line">   dependencies &#123;</div><div class="line">       classpath &apos;com.android.tools.build:gradle:2.2.3&apos;</div><div class="line">    </div><div class="line">       // NOTE: Do not place your application dependencies here; they belong</div><div class="line">       // in the individual module build.gradle files</div><div class="line">    </div><div class="line">       classpath &apos;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7&apos;</div><div class="line">       classpath &apos;com.github.dcendents:android-maven-gradle-plugin:1.4.1&apos;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">allprojects &#123;</div><div class="line">   repositories &#123;</div><div class="line">       jcenter()</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>新建一个作为依赖包的项目（后简称包项目），使用现有依赖包项目同理。并在包项目下新建<code>bintrayUpload.gradle</code>文件和<code>local.properties</code>，且将前者通过<code>apply from: &quot;bintrayUpload.gradle&quot;</code>应用到包项目的<code>build.gradle</code>中：<br><img src="应用到buildgradle.png" alt=""></p>
+<p>将以下内容拷贝到<code>bintrayUpload.gradle</code>中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div></pre></td><td class="code"><pre><div class="line">apply plugin: &apos;com.github.dcendents.android-maven&apos;</div><div class="line">apply plugin: &apos;com.jfrog.bintray&apos;</div><div class="line">    </div><div class="line">// load properties</div><div class="line">Properties properties = new Properties()</div><div class="line">File localPropertiesFile = project.file(&quot;local.properties&quot;);</div><div class="line">if(localPropertiesFile.exists())&#123;</div><div class="line">   properties.load(localPropertiesFile.newDataInputStream())</div><div class="line">&#125;</div><div class="line">    </div><div class="line">// read properties</div><div class="line">def projectName = properties.getProperty(&quot;project.name&quot;)</div><div class="line">def projectGroupId = properties.getProperty(&quot;project.groupId&quot;)</div><div class="line">def projectArtifactId = properties.getProperty(&quot;project.artifactId&quot;)</div><div class="line">def projectVersionName = android.defaultConfig.versionName</div><div class="line">def projectPackaging = properties.getProperty(&quot;project.packaging&quot;)</div><div class="line">def projectSiteUrl = properties.getProperty(&quot;project.siteUrl&quot;)</div><div class="line">def projectGitUrl = properties.getProperty(&quot;project.gitUrl&quot;)</div><div class="line">def projectVersion = properties.getProperty(&quot;project.version&quot;)</div><div class="line">    </div><div class="line">def developerId = properties.getProperty(&quot;developer.id&quot;)</div><div class="line">def developerName = properties.getProperty(&quot;developer.name&quot;)</div><div class="line">def developerEmail = properties.getProperty(&quot;developer.email&quot;)</div><div class="line">    </div><div class="line">def bintrayUser = properties.getProperty(&quot;bintray.user&quot;)</div><div class="line">def bintrayApikey = properties.getProperty(&quot;bintray.apikey&quot;)</div><div class="line">    </div><div class="line">def javadocName = properties.getProperty(&quot;javadoc.name&quot;)</div><div class="line">    </div><div class="line">group = projectGroupId</div><div class="line">version = projectVersion</div><div class="line">    </div><div class="line">// This generates POM.xml with proper parameters</div><div class="line">install &#123;</div><div class="line">   repositories.mavenInstaller &#123;</div><div class="line">       pom &#123;</div><div class="line">           project &#123;</div><div class="line">               name projectName</div><div class="line">               groupId projectGroupId</div><div class="line">               artifactId projectArtifactId</div><div class="line">               version projectVersionName</div><div class="line">               packaging projectPackaging</div><div class="line">               url projectSiteUrl</div><div class="line">               licenses &#123;</div><div class="line">                   license &#123;</div><div class="line">                       name &apos;The Apache Software License, Version 2.0&apos;</div><div class="line">                       url &apos;http://www.apache.org/licenses/LICENSE-2.0.txt&apos;</div><div class="line">                   &#125;</div><div class="line">               &#125;</div><div class="line">               developers &#123;</div><div class="line">                   developer &#123;</div><div class="line">                       id developerId</div><div class="line">                       name developerName</div><div class="line">                       email developerEmail</div><div class="line">                   &#125;</div><div class="line">               &#125;</div><div class="line">               scm &#123;</div><div class="line">                   connection projectGitUrl</div><div class="line">                   developerConnection projectGitUrl</div><div class="line">                   url projectSiteUrl</div><div class="line">               &#125;</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">// This generates sources.jar</div><div class="line">task sourcesJar(type: Jar) &#123;</div><div class="line">   from android.sourceSets.main.java.srcDirs</div><div class="line">   classifier = &apos;sources&apos;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">//task javadoc(type: Javadoc) &#123;</div><div class="line">//    source = android.sourceSets.main.java.srcDirs</div><div class="line">//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))</div><div class="line">//&#125;</div><div class="line">    </div><div class="line">// This generates javadoc.jar</div><div class="line">//task javadocJar(type: Jar, dependsOn: javadoc) &#123;</div><div class="line">//    classifier = &apos;javadoc&apos;</div><div class="line">//    from javadoc.destinationDir</div><div class="line">//&#125;</div><div class="line">    </div><div class="line">artifacts &#123;</div><div class="line">//    archives javadocJar</div><div class="line">   archives sourcesJar</div><div class="line">&#125;</div><div class="line">    </div><div class="line">// javadoc configuration</div><div class="line">//javadoc &#123;</div><div class="line">//    options&#123;</div><div class="line">//        encoding &quot;UTF-8&quot;</div><div class="line">//        charSet &apos;UTF-8&apos;</div><div class="line">//        author true</div><div class="line">//        version projectVersionName</div><div class="line">//        links &quot;http://docs.oracle.com/javase/7/docs/api&quot;</div><div class="line">//        title javadocName</div><div class="line">//    &#125;</div><div class="line">//&#125;</div><div class="line">    </div><div class="line">// bintray configuration</div><div class="line">bintray &#123;</div><div class="line">   user = bintrayUser</div><div class="line">   key = bintrayApikey</div><div class="line">   configurations = [&apos;archives&apos;]</div><div class="line">   pkg &#123;</div><div class="line">       repo = &quot;maven&quot;</div><div class="line">       name = projectName</div><div class="line">       userOrg = &apos;magickendev&apos;</div><div class="line">       vcsUrl = projectGitUrl</div><div class="line">       licenses = [&quot;Apache-2.0&quot;]</div><div class="line">       publish = true</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是上传操作配置的主体文件，其中被注释掉的主要是java doc相关代码，如果有需要上传文档，可以取消注释。这里要回答上文说到的配置文件中不大却很重要的区别，末尾的<code>bintray</code>代码块里的<code>pkg</code>代码块中的组织名字（也即上文添加的组织名）<code>userOrg = &#39;magickendev&#39;</code>属性，<strong>在组织中添加的仓库需要加这个属性，但在账户主页添加仓库则不需要。</strong><br>还有就是<code>repo = &quot;maven&quot;</code>是上面添加的仓库名，如果你的仓库名是<code>cangjingkong</code>，那这里就要改成<code>repo = &quot;cangjingkong&quot;</code>。<br>最后将配置的具体内容拷贝到<code>local.properties</code>中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#project</div><div class="line">project.name=hello-bintray</div><div class="line">project.groupId=com.magicken.android</div><div class="line">project.artifactId=hello-bintray</div><div class="line">project.packaging=aar</div><div class="line">project.siteUrl=https://coding.net/u/boanda/p/hello-bintray</div><div class="line">project.gitUrl=https://coding.net/u/boanda/p/hello-bintray/git</div><div class="line">project.version=1.0.0</div><div class="line">    </div><div class="line">#javadoc</div><div class="line">javadoc.name=hello-bintray</div><div class="line">    </div><div class="line">#bintray</div><div class="line">bintray.user=magicken</div><div class="line">bintray.apikey=****************************************</div><div class="line">    </div><div class="line">#developer</div><div class="line">developer.id=magicken</div><div class="line">developer.name=mk</div><div class="line">developer.email=zhanggh801@gmail.com</div></pre></td></tr></table></figure>
+<p>其中<code>project.version</code>要和<code>build.gradle</code>中定义的<code>versionName</code><strong>相同</strong>，否则可能上传失败，或者<strong>即使成功，也无法使用</strong>。还有就是user是Bintray的用户名，apikey在编辑账户信息中可以看到：<br><img src="查看apikey.png" alt=""></p>
+<p>好了，以上就是所有的准备工作，接下来我们要将<code>hello-bintray</code>发布上去。</p>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>在Android Studio的终端（Terminal）中运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gradle install</div></pre></td></tr></table></figure>
+<p>成功的话，可以在最后看到这个信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BUILD SUCCESSFUL</div></pre></td></tr></table></figure>
+<p>接着运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gradle bintrayUpload</div></pre></td></tr></table></figure>
+<p>如果上传成功，会看到最后看到以下信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SUCCESSFUL</div></pre></td></tr></table></figure>
+<p>打开刚刚在Bintray上创建的<code>hello-bintray</code>包，可以在右边的版本下看到我们上传的<code>1.0.0</code>：<br><img src="上传到bintray成功.png" alt=""></p>
+<p>这时我已经可以初步使用上传的包，在app的<code>build.gradle</code>中添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile &apos;com.magicken.android:hello-bintray:1.0.0&apos;</div></pre></td></tr></table></figure>
+<p>因为还未连接到JCenter，还需要在项目的<code>build.gradle</code>中添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">maven&#123;</div><div class="line">       url &apos;https://dl.bintray.com/magickendev/maven&apos;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>添加位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">// Top-level build file where you can add configuration options common to all sub-projects/modules.</div><div class="line">    </div><div class="line">buildscript &#123;</div><div class="line">   repositories &#123;</div><div class="line">       jcenter()</div><div class="line">   &#125;</div><div class="line">   dependencies &#123;</div><div class="line">       classpath &apos;com.android.tools.build:gradle:2.2.3&apos;</div><div class="line">    </div><div class="line">       // NOTE: Do not place your application dependencies here; they belong</div><div class="line">       // in the individual module build.gradle files</div><div class="line">    </div><div class="line">       classpath &apos;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7&apos;</div><div class="line">       classpath &apos;com.github.dcendents:android-maven-gradle-plugin:1.4.1&apos;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">allprojects &#123;</div><div class="line">   repositories &#123;</div><div class="line">       jcenter()</div><div class="line">    </div><div class="line">       maven&#123;</div><div class="line">           url &apos;https://dl.bintray.com/magickendev/maven&apos;</div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们先在<code>setting.gradle</code>中去掉刚刚已经上传的<code>Module</code>，并使用刚刚写的方法试一下效果：<br><img src="使用包.png" alt=""></p>
+<p>运行结果：<br><img src="运行结果.png" alt=""></p>
+<p>好了，到这里已经成功大半了，接下来为了去掉下面这三行代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">maven&#123;</div><div class="line">           url &apos;https://dl.bintray.com/magickendev/maven&apos;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>我们要把上传到Bintray的文件添加到JCenter。很简单，点击<code>hello-bintray</code>包界面中右下角的<strong>Add<br>to JCenter</strong>：<br><img src="上传到bintray成功.png" alt=""></p>
+<p>然后在发送页面输入一些信息：<br><img src="添加到JCenter.png" alt=""></p>
+<p>完了点击发送，最后就是耐心的等待，短则几个小时，长的要几天，就会收到一封添加成功的邮件，在Bintray的Inbox中也会收到消息：<br><img src="添加到JCenter成功.png" alt=""></p>
+<p>再次进入<code>hello-bintray</code>包页面，右下角的Link to已经改变：<br><img src="添加到JCenter成功2.png" alt=""></p>
+<p>这时再去掉上面那三行代码，就万事大吉了。</p>
+<p>– end</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/26/how-to-upload-library-to-jcenter/" class="archive-article-date">
+  	<time datetime="2016-11-26T02:12:26.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-26</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bintray/">bintray</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jcenter/">jcenter</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/11/18/build-hexo/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">以Hexo为框架搭建博客</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 magicKen
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Coding/" style="font-size: 10px;">Coding</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Godaddy/" style="font-size: 10px;">Godaddy</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/bintray/" style="font-size: 10px;">bintray</a> <a href="/tags/gradle/" style="font-size: 10px;">gradle</a> <a href="/tags/jcenter/" style="font-size: 10px;">jcenter</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
